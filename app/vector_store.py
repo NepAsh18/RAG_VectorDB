@@ -15,14 +15,12 @@ def init_qdrant():
         )
 
 def store_vectors(chunks, embeddings, meta):
-    doc_id = str(uuid4())
-
     points = [
         {
-            "id": f"{doc_id}_{i}",
+            "id": str(uuid4()),  # ✅ valid UUID for each chunk
             "vector": embeddings[i],
             "payload": {
-                "doc_id": doc_id,
+                "doc_id": str(uuid4()),  # optional: keep original doc UUID
                 "text": chunks[i],
                 "filename": meta["filename"]
             }
@@ -31,4 +29,6 @@ def store_vectors(chunks, embeddings, meta):
     ]
 
     client.upsert(QDRANT_COLLECTION, points)
-    return doc_id
+    return meta["filename"]  # or some doc-level identifier
+
+   

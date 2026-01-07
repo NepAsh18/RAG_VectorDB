@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+qdrant-client
+redis
+sqlalchemy
+psycopg2-binary
+pydantic
+python-dotenv
+ollama
